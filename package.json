@@ -1,0 +1,27 @@
+{
+  "name": "zblog",
+  "version": "1.0.0",
+  "description": "blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrzxc/Zblog.git"
+  },
+  "keywords": [
+    "blog",
+    "Nodejs",
+    "MongoDB"
+  ],
+  "author": "mrzxc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrzxc/Zblog/issues"
+  },
+  "homepage": "https://github.com/mrzxc/Zblog#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
