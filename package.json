@@ -2,7 +2,7 @@
   "name": "zblog",
   "version": "1.0.0",
   "description": "blog",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +22,13 @@
   },
   "homepage": "https://github.com/mrzxc/Zblog#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "jade": "^1.11.0",
+    "mongoose": "^4.10.8"
+  },
+  "devDependencies": {
+    "uglify-js": "^3.0.18"
   }
 }

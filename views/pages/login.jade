@@ -1,0 +1,44 @@
+doctype
+html
+  head
+    meta(charset="utf-8")
+    title #{title}
+    link(rel="stylesheet", href="/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/layout.css")
+    link(rel="stylesheet", href="/css/login.css")       
+  body
+    .main
+      div
+        .logo
+          img(src="/img/logo.png")
+        h3 与世界分享你的知识、经验和见解
+        .tab
+          ul.nav.nav-tabs(role="tablist")
+            li.active(role="presentation")
+              a(href="#signup" aria-controls="signup-form" role="tab" data-toggle="tab") 注册
+            li(role="presentation")
+              a(href="#signin" aria-controls="signin-form" role="tab" data-toggle="tab") 登录
+          .tab-content
+            .tab-pane.active#signup(role="tabpanel")
+              form
+                .form-group
+                  input#name.form-control(type="text" placeholder="姓名")
+                .form-group
+                  input#name.form-control(type="text" placeholder="手机号")
+                .form-group
+                  input#name.form-control(type="password" placeholder="密码")
+                button.submit.btn.btn-primary 注册
+
+            .tab-pane#signin(role="tabpanel")
+              form
+                .form-group
+                  input#name.form-control(type="text" placeholder="手机号")
+                .form-group
+                  input#name.form-control(type="password" placeholder="密码")
+                button.submit.btn.btn-primary 登录
+
+    include ../includes/footer
+
+    script(src="/jquery/dist/jquery.min.js")    
+    script(src="/bootstrap/dist/js/bootstrap.min.js")
+      
