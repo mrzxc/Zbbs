@@ -1,3 +1,4 @@
+var mongoose = require("mongoose");
 var QuestionSchema = new mongoose.Schema({
   id: Number,
   userName: String,
@@ -5,10 +6,24 @@ var QuestionSchema = new mongoose.Schema({
   content: String,
   date: {
     type: Date,
-    default: Date.now();
+    default: Date.now()
   }
 })
-questionSchema.pre("save", function(next) {
-
+QuestionSchema.pre("save", function(next) {
+  if(this.isNew) {
+    this.date = Date.now()
+  }
+  next();
 });
-module.exports = questionSchema;
+
+QuestionSchema.static = {
+  fetch: function(cb) {
+    return this.find({}).sort('date');
+    exec(cb)
+  },
+  findById: function(id, cb) {
+    return this.find({_id: id})
+    exec(cb)
+  }
+}
+module.exports = QuestionSchema;

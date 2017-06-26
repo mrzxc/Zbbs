@@ -1,0 +1,13 @@
+#question.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+  .modal-dialog(role="document")
+    .modal-content
+      .modal-header
+        h2 写下你的问题
+      .modal-body
+        form
+          .form-group
+            input#name.form-control(type="text" placeholder="问题标题")
+          .form-group
+            input#name.form-control(type="text" placeholder="描述问题")
+          button#question-submit.btn.btn-primary 提交问题
+      .modal-footer

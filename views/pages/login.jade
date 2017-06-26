@@ -15,11 +15,20 @@ html
         .tab
           ul.nav.nav-tabs(role="tablist")
             li.active(role="presentation")
-              a(href="#signup" aria-controls="signup-form" role="tab" data-toggle="tab") 注册
-            li(role="presentation")
               a(href="#signin" aria-controls="signin-form" role="tab" data-toggle="tab") 登录
+            li(role="presentation")
+              a(href="#signup" aria-controls="signup-form" role="tab" data-toggle="tab") 注册
           .tab-content
-            .tab-pane.active#signup(role="tabpanel")
+            .tab-pane.active#signin(role="tabpanel")
+              form
+                .form-group
+                  input#name.form-control(type="text" placeholder="手机号")
+                .form-group
+                  input#name.form-control(type="password" placeholder="密码")
+                button.submit.btn.btn-primary 登录
+                h6
+                  a(href="") 忘记密码？
+            .tab-pane#signup(role="tabpanel")
               form
                 .form-group
                   input#name.form-control(type="text" placeholder="姓名")
@@ -29,13 +38,7 @@ html
                   input#name.form-control(type="password" placeholder="密码")
                 button.submit.btn.btn-primary 注册
 
-            .tab-pane#signin(role="tabpanel")
-              form
-                .form-group
-                  input#name.form-control(type="text" placeholder="手机号")
-                .form-group
-                  input#name.form-control(type="password" placeholder="密码")
-                button.submit.btn.btn-primary 登录
+            
 
     include ../includes/footer
 

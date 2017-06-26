@@ -1,7 +1,10 @@
 var express = require('express');
-
 var app = express();
 var mongoose = require("mongoose");
+var Question = require("./models/question");
+
+mongoose.connect("mongodb://localhost/zhihu")
+
 app.set('port', process.env.PORT || 3000);
 
 app.set('view engine', 'jade');
