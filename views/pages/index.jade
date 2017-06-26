@@ -1,3 +1,9 @@
 extends ../layout
 
 block content
+  include ../includes/header
+  .main.row
+    .content.col-md-6.col-md-offset-2
+      each item in items
+        .item
+          include ../includes/index-item.jade

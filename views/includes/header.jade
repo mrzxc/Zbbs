@@ -1,4 +1,28 @@
-.container
+nav.navbar.navbar-fix-top.navbar-default
   .row
-    .page-header
-      h1 #{title}
+    a.logo.col-md-1.col-md-offset-1.btn(href="#")
+      img(src="/img/logo.png")
+    ul.nav.navbar-nav.col-md-4
+      li.active
+        a 首页
+      li
+        a 话题
+      li
+        a 发现
+      li
+        a 消息
+    .nav.navbar-nav.col-md-3
+      button.btn.btn-primary.navbar-btn.col-md-2 发帖
+    ul.nav.navbar-nav.col-md-3.user-control
+      li.dropdown
+        a.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false")
+          img(src="#{user.img}")
+          span #{user.name}
+        ul.dropdown-menu
+          li
+            a 1
+          li
+            a 2
+          li
+            a 3
+

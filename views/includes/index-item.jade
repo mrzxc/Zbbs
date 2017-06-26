@@ -1,0 +1,19 @@
+hr
+.item-header.row
+  .item-img.col-md-1
+    img(src= item.user.img)
+  .col-md-11
+    h5
+      a(href= item.id)
+        span= item.title
+    small= item.user.name
+each reply in item.replys
+  .item-reply-head.row
+    .reply-like.col-md-1
+      h4= reply.like
+    .reply-detail.col-md-11
+      h6
+        strong= reply.name
+  .item-reply-content.row
+    h6.col-md-11.col-md-offset-1= reply.content
+
