@@ -12,3 +12,9 @@ html, body {
 .modal-header h2 {
   text-align: center;
 }
+.gray {
+  color: #999999;
+}
+.item-reply-head {
+  height: 30px;
+}

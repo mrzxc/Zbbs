@@ -3,17 +3,18 @@ hr
   .item-img.col-md-1
     img(src= item.user.img)
   .col-md-11
+    span.gray 发帖来自 
+      a(href= "/person/" + item.user.phoneNumber)
+      small= item.user.name
     h5
-      a(href= item.id)
-        span= item.title
-    small= item.user.name
+      a(href= item.id)= item.title
 each reply in item.replys
   .item-reply-head.row
     .reply-like.col-md-1
-      h4= reply.like
+      span= reply.like
     .reply-detail.col-md-11
-      h6
+      span
         strong= reply.name
   .item-reply-content.row
-    h6.col-md-11.col-md-offset-1= reply.content
-
+    span.small.col-md-11.col-md-offset-1= reply.content
+  hr
