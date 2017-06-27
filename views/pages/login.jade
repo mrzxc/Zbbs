@@ -12,36 +12,62 @@ html
         .logo
           img(src="/img/logo.png")
         h3 与世界分享你的知识、经验和见解
-        .tab
+        .tab#tab
           ul.nav.nav-tabs(role="tablist")
             li.active(role="presentation")
               a(href="#signin" aria-controls="signin-form" role="tab" data-toggle="tab") 登录
             li(role="presentation")
               a(href="#signup" aria-controls="signup-form" role="tab" data-toggle="tab") 注册
+          #error
+            span error
           .tab-content
             .tab-pane.active#signin(role="tabpanel")
               form
                 .form-group
-                  input#name.form-control(type="text" placeholder="手机号")
+                  input#signin-phone.form-control(type="text" placeholder="手机号")
                 .form-group
-                  input#name.form-control(type="password" placeholder="密码")
-                button.submit.btn.btn-primary 登录
+                  input#signin-password.form-control(type="password" placeholder="密码")
+                button#signin-button.submit.btn.btn-primary 登录
                 h6
-                  a(href="") 忘记密码？
+                  a#forget(href="") 忘记密码？
             .tab-pane#signup(role="tabpanel")
               form
                 .form-group
-                  input#name.form-control(type="text" placeholder="姓名")
+                  input#signup-name.form-control(type="text" placeholder="姓名")
                 .form-group
-                  input#name.form-control(type="text" placeholder="手机号")
+                  input#signup-phone.form-control(type="text" placeholder="手机号")
                 .form-group
-                  input#name.form-control(type="password" placeholder="密码")
-                button.submit.btn.btn-primary 注册
-
-            
-
-    include ../includes/footer
-
+                  input#signup-password.form-control(type="password" placeholder="密码")
+                button#signup-button.submit.btn.btn-primary 注册
+    include ../includes/footer  
+    #forget-form.modal.fade.bs-example-modal-sm(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+      .modal-dialog.modal-sm(role="document")
+        .modal-content
+          #forget-alert.modal-header
+            h3 通过手机把密码找回
+          .modal-body
+            form
+              .form-group
+                input#forget-phone.form-control(type="text" placeholder="请输入手机号")
+              .form-inline
+                .form-group
+                  input#verify.form-control.col-md-6(type="text" placeholder="验证码")
+                  button#get-verify.btn.btn-primary.form-control.col-md-6 获取验证码
+          .modal-footer
+    #verify-modal.modal.fade.bs-example-modal-sm(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+      .modal-dialog.modal-sm(role="document")
+        .modal-content
+          .modal-header
+            h3 手机验证
+            span#verify-alert
+          .modal-body
+            form
+                .form-group.form-inline
+                  input#signup-verify.form-control.col-md-6(type="text" placeholder="验证码")
+                  button#get-verify-button.btn.btn-primary.form-control 获取验证码
+                button#verify-button.btn.btn-primary.form-control 验证
+          .modal-footer
     script(src="/jquery/dist/jquery.min.js")    
     script(src="/bootstrap/dist/js/bootstrap.min.js")
+    script(src="/js/login.js")
       

@@ -14,15 +14,15 @@ nav.navbar.navbar-fix-top.navbar-default
     .nav.navbar-nav.col-md-3
       button.btn.btn-primary.navbar-btn.col-md-2(data-toggle="modal" data-target="#question") 发帖
     ul.nav.navbar-nav.col-md-3.user-control
-      li.dropdown
-        a.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false")
-          img(src="#{user.img}")
-          span #{user.name}
-        ul.dropdown-menu
-          li
-            a 1
-          li
-            a 2
-          li
-            a 3
-
+      if user
+        li.dropdown
+          a.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false")
+            img(src= user.img)
+            span= user.username
+          ul.dropdown-menu
+            li
+              a(data-phone= user.phoneNumber) 个人主页
+            li
+              a(href="/signout") 登出
+      else
+        a(href="/login").navbar-btn.btn.btn-primary 请登录

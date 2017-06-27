@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrzxc/Zblog.git"
+    "url": "git+https://github.com/mrzxc/Zbbs.git"
   },
   "keywords": [
     "blog",
@@ -18,13 +18,16 @@
   "author": "mrzxc",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mrzxc/Zblog/issues"
+    "url": "https://github.com/mrzxc/Zbbs/issues"
   },
-  "homepage": "https://github.com/mrzxc/Zblog#readme",
+  "homepage": "https://github.com/mrzxc/Zbbs#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
+    "connect-mongo": "^1.3.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
     "jade": "^1.11.0",
     "mongoose": "^4.10.8"
   },

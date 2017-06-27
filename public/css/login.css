@@ -36,3 +36,16 @@ body {
 .submit {
   width: 100%;
 }
+#tab {
+  position: relative;
+}
+#error {
+  display: none;
+  color: red;
+  position: absolute;
+  left: 150px;
+  top: 10px;
+}
+#verify-alert {
+  color: red;
+}
