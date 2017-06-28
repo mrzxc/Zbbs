@@ -5,26 +5,23 @@ block content
   .main.row
     .question-header.content.col-md-5.col-md-offset-3
       .question-header-main
-      h1#question-header-title(data-id= question.id)= question.title
+      h1#question-header-title(data-id= question.id)
+        span= question.title
         if question.ifEdit  
+          question.ifEdit
+            button.edit-button.btn.btn-link.gray 
+              span.glyphicon.glyphicon-pencil
+              span 修改
           button.delete-button.btn.btn-link.gray 
             span.glyphicon.glyphicon-remove
             span 删除
-      if question.ifEdit
-        button.edit-button.btn.btn-link.gray 
-          span.glyphicon.glyphicon-pencil
-          span 修改
       p#question-header-detail= question.content
-      if question.ifEdit
-        button.edit-button.btn.btn-link.gray
-          span.glyphicon.glyphicon-pencil
-          span 修改
       .question-header-footer.col-md-offset-10
-        .btn.btn-primary
+        #reply-button.btn.btn-primary
           span.glyphicon.glyphicon-pencil
-          span 写回答
-    #question-body.content.col-md-5.col-md-offset-3
-
+          span 回复
+    #question-body.container.col-md-5.col-md-offset-3
+      
   #confirm-delete.modal.fade.bs-example-modal-sm(tabbindex='-1' role="diolog")
     .modal-dialog.modal-sm(role='document')
       .modal-content
@@ -32,3 +29,29 @@ block content
           h4 确认删除吗？
         .modal-body
           button#delete-confirm.btn.btn-primary 确认
+  #reply-modal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          h2 回复帖子
+          h5#modal-error.red.center       
+        .modal-body
+          form
+            .form-group
+              textarea#reply-content.form-control(rows= 5 type="text" placeholder="请写下你的答案")
+            button#reply-submit.btn.btn-primary 提交
+        .modal-footer
+  #update-model.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          h2 修改问题
+          h5#modal-error.red.center       
+        .modal-body
+          form
+            .form-group
+              input#update-title.form-control(type="text" )
+            .form-group
+              textarea#update-content.form-control(rows= 5 type="text" )
+            button#update-submit.btn.btn-primary 修改
+        .modal-footer

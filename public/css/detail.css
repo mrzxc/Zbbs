@@ -2,3 +2,9 @@
   padding: 10px;
   border-bottom: 1px solid #cccccc;
 }
+#question-body {
+  padding-top: 20px;
+}
+.reply-body h5{
+  word-break:break-all; width:700px;
+}

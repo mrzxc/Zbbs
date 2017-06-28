@@ -1,5 +1,8 @@
 var Question = require("../models/question");
 var User = require("../models/user");
+/**
+ * 增加
+ */
 exports.add = function(req, res) {
   if(!req.session.user) {
     return res.send(JSON.stringify({
@@ -29,6 +32,9 @@ exports.add = function(req, res) {
     }))
   })
 }
+/**
+ * 显示列表
+ */
 exports.list = function(req, res) {
   var page = req.query.page;
   var num = 8;
@@ -41,7 +47,7 @@ exports.list = function(req, res) {
     })
     var count = list.length;
     list = list.slice((page - 1) * num, page * num);
-    var data = {};
+    var data = null;
     data = {
       count: count,
       page: page,
@@ -104,6 +110,9 @@ exports.detail = function(req, res) {
     });
   })
 }
+/**
+ * 改
+ */
 exports.update = function(req, res) {
   var title = req.body.title;
   var content = req.body.content;
@@ -128,6 +137,9 @@ exports.update = function(req, res) {
     }
   })
 }
+/**
+ * 删
+ */
 exports.delete = function(req, res) {
   var id = req.body.id;
   if(!req.session.user) {

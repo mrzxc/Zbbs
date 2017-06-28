@@ -41,6 +41,8 @@ module.exports = function(app) {
 
   // Reply
   app.get('/reply_get', Reply.get)
+  app.post('/reply_add', Reply.add)
+  
 
   app.use(function(req, res, next) {
     res.status(404);
