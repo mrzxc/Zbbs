@@ -1,20 +1,12 @@
-html, body {
-  height: 100%;
-  margin: 0px;
-}
-.main {
-  min-height: 100%;
-  margin-bottom: -150px;
-}
 .reply-name {
   font-weight: blod;
 }
 .modal-header h2 {
   text-align: center;
 }
-.gray {
-  color: #999999;
-}
 .item-reply-head {
   height: 30px;
+}
+textarea {
+  resize: none;
 }

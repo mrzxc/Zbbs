@@ -1,9 +1,18 @@
 var mongoose = require("mongoose");
 var ReplySchema = new mongoose.Schema({
-  id: Number,
   questionId: Number,
-  userName: String,
+  userphoneNumber: String,
   like: Number,
   content: String,
+  date: {
+    type: Date,
+    default: Date.now()
+  }
 })
+QuestionSchema.pre("save", function(next) {
+  if(this.isNew) {
+    this.date = Date.now()
+  }
+  next();
+});
 module.exports = replySchema;

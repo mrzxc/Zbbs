@@ -1,5 +1,9 @@
 link(rel="stylesheet", href="/bootstrap/dist/css/bootstrap.min.css")
 link(rel="stylesheet", href="/css/layout.css")
-link(rel="stylesheet", href="/css/index.css")
+each item in csss
+  link(rel="stylesheet", href= item)
 script(src="/jquery/dist/jquery.min.js")
 script(src="/bootstrap/dist/js/bootstrap.min.js")
+script(src="/js/layout.js")
+each item in scripts
+  script(src= item)

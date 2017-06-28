@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 var QuestionSchema = new mongoose.Schema({
-  id: Number,
-  userName: String,
+  userPhoneNumber: String,
   title: String,
   content: String,
   date: {

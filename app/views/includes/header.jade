@@ -1,10 +1,10 @@
-nav.navbar.navbar-fix-top.navbar-default
+nav.navbar.navbar-default.navbar-fixed-top
   .row
-    a.logo-small.col-md-1.col-md-offset-1.btn(href="#")
+    a.logo-small.col-md-1.col-md-offset-1.btn(href="/")
       img(src="/img/logo.png")
     ul.nav.navbar-nav.col-md-4
-      li.active
-        a 首页
+      li
+        a(href="/") 首页
       li
         a 话题
       li
@@ -12,8 +12,8 @@ nav.navbar.navbar-fix-top.navbar-default
       li
         a 消息
     .nav.navbar-nav.col-md-3
-      button.btn.btn-primary.navbar-btn.col-md-2(data-toggle="modal" data-target="#question") 发帖
-    ul.nav.navbar-nav.col-md-3.user-control
+      button#question-button.btn.btn-primary.navbar-btn.col-md-2(data-toggle="modal") 发帖
+    ul.nav.navbar-nav.col-md-3#user-control
       if user
         li.dropdown
           a.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false")
@@ -25,4 +25,4 @@ nav.navbar.navbar-fix-top.navbar-default
             li
               a(href="/signout") 登出
       else
-        a(href="/login").navbar-btn.btn.btn-primary 请登录
+        a(href="/login").navbar-btn.btn.btn-primary 登录

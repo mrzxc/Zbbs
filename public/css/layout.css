@@ -1,6 +1,26 @@
+.red {
+  color: #ee3333;
+}
+.gray {
+  color: #999999;
+}
+html, body {
+  height: 100%;
+  margin: 0px;
+}
+body {
+  padding-top: 50px;
+}
+.main {
+  min-height: 100%;
+  margin-bottom: -150px;
+}
 .logo-small img {
   width: 61px;
 }
 .user-control img{
   width: 20px;
+}
+.dropdown .dropdown-toggle {
+  padding: 10px;
 }

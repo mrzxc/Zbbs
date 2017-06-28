@@ -2,5 +2,33 @@ extends ../layout
 
 block content
   include ../includes/header
-  
-  include ../includes/modal
+  .main.row
+    .question-header.content.col-md-5.col-md-offset-3
+      .question-header-main
+      h1#question-header-title(data-id= question.id)= question.title
+        if question.ifEdit  
+          button.delete-button.btn.btn-link.gray 
+            span.glyphicon.glyphicon-remove
+            span 删除
+      if question.ifEdit
+        button.edit-button.btn.btn-link.gray 
+          span.glyphicon.glyphicon-pencil
+          span 修改
+      p#question-header-detail= question.content
+      if question.ifEdit
+        button.edit-button.btn.btn-link.gray
+          span.glyphicon.glyphicon-pencil
+          span 修改
+      .question-header-footer.col-md-offset-10
+        .btn.btn-primary
+          span.glyphicon.glyphicon-pencil
+          span 写回答
+    #question-body.content.col-md-5.col-md-offset-3
+
+  #confirm-delete.modal.fade.bs-example-modal-sm(tabbindex='-1' role="diolog")
+    .modal-dialog.modal-sm(role='document')
+      .modal-content
+        .modal-header 
+          h4 确认删除吗？
+        .modal-body
+          button#delete-confirm.btn.btn-primary 确认

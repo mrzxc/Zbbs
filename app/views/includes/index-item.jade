@@ -1,20 +1,20 @@
 hr
 .item-header.row
   .item-img.col-md-1
-    img(src= item.user.img)
+    img(src= "item.user.img")
   .col-md-11
     span.gray 发帖来自 
-      a(href= "/person/" + item.user.phoneNumber)
-      small= item.user.name
+      a(href= "/person/" + "item.user.phoneNumber")
+      small= "item.user.username"
     h5
-      a(href= item.id)= item.title
-each reply in item.replys
-  .item-reply-head.row
-    .reply-like.col-md-1
-      span= reply.like
-    .reply-detail.col-md-11
-      span
-        strong= reply.name
-  .item-reply-content.row
-    span.small.col-md-11.col-md-offset-1= reply.content
-  hr
+      a(href= "item.id")= "item.title"
+//- each reply in item.replys
+//-   .item-reply-head.row
+//-     .reply-like.col-md-1
+//-       span= reply.like
+//-     .reply-detail.col-md-11
+//-       span
+//-         strong= reply.username
+//-   .item-reply-content.row
+//-     span.small.col-md-11.col-md-offset-1= reply.content
+//-   hr

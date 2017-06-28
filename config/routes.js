@@ -1,6 +1,7 @@
 var User = require("../app/controllers/user");
 var Index = require("../app/controllers/index");
-var Utils = require("../utils");
+var Question = require("../app/controllers/question");
+var Reply = require("../app/controllers/reply");
 
 module.exports = function(app) {
   /**
@@ -23,13 +24,24 @@ module.exports = function(app) {
   // Index
   app.get('/', Index.index)
 
-  //Index
-  app.get("/getVerify", User.getVerify);
+  // User
+  app.get("/getVerify", User.getVerify)
   app.get('/user_exit', User.Exit)
   app.get('/login', User.login)
   app.post('/signup', User.signup)
   app.post('/signin', User.signin)
   app.get('/signout', User.signout)
+
+  // Question
+  app.post('/question_add', Question.add)
+  app.post('/question_update', Question.update)  
+  app.post('/question_delete', Question.delete)
+  app.get('/list', Question.list)
+  app.get('/detail/:id', Question.detail)  
+
+  // Reply
+  app.get('/reply_get', Reply.get)
+
   app.use(function(req, res, next) {
     res.status(404);
     res.render('404');
