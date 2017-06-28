@@ -8,15 +8,7 @@
     <pre><code>git clone https://github.com/mrzxc/Zbbs.git</code></pre>
 2. 安装依赖库 
     <pre><code>npm install</pre></code>
-3. 设置证书 来自[网易云通信与视频](http://netease.im/)短信验证码接口
-    <pre><code>cd Zbb  
-    touch credentials.js </pre></code>
-    格式为: 
-    <pre><code>module.exports =  {
-      verify_app_secret: '',
-      verify_app_key: ''
-    }</pre></code>
-    
+3. 设置credentials.js证书 来自[网易云通信与视频](http://netease.im/)短信验证码接口
 ## 应用模块、框架 
 - 客户端 
   - 使用Bootstrap做主题样式和布局 
@@ -37,9 +29,21 @@
 - public (静态文件) 
 - app.js (入口文件) 
 - credentials.js (证书(短信平台token)) 
-
-## 功能简介 
-- 分页:  
- 分页支持
-## 存留问题 
-- 发帖现在只用了textarea,功能简单
+## 业务功能简介 
+- '/login' 用户注册、登录、密码找回  
+  - 手机号注册,由短信验证码验证 
+  - 密码找回,通过手机短信验证码验证 
+- '/' 帖子展示 
+  - 异步载入 
+  - 分页功能 
+    - 一页最多8个帖子 
+    - 页码最多可显示8个,多的使用省略号按钮代替 
+- '/detail/:id' 帖子详情(权限管理在此) 
+  - 帖子内容在后端渲染, 回复在前端异步加载 
+  - 帖子本人打开帖子会有修改和删除按钮 
+  - 回复功能 (现仅有添加回复功能)
+## 未做的应做的事 
+- 缺少可配置项管理 
+- 测试和优化 
+## 未做的不想做的事 
+- 功能完善 

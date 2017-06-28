@@ -4,7 +4,7 @@ $(function() {
    */
   var listContentEle = $("#list-content");
   function refreshList(page) {
-    var maxPage = 4;
+    var maxPage = 8; // 页码最多可显示数目
     if(!page) {
       page = 1;
     }
