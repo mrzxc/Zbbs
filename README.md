@@ -9,6 +9,9 @@
 2. 安装依赖库 
     <pre><code>npm install</pre></code>
 3. 设置credentials.js证书 来自[网易云通信与视频](http://netease.im/)短信验证码接口
+## 启动 
+  <pre><code>npm start</code></pre>
+打开浏览器访问 [http://localhost:3000](http://localhost:3000)
 ## 应用模块、框架 
 - 客户端 
   - 使用Bootstrap做主题样式和布局 
