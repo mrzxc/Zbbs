@@ -1,4 +1,5 @@
 var User = require("../models/user");
+var verify = require("../../common/verify");
 var Utils = {
   /**
    * 手机号正则验证
@@ -35,8 +36,10 @@ var Utils = {
  * 获取验证码
  */
 exports.getVerify = function(req, res) {
-  if(1) {
+  var phoneNumber = req.query.phoneNumber;
+  if(Utils.phoneCheck(phoneNumber)) {
     res.send("1");
+    verify(phoneNumber, req);
   }
 }
 /**

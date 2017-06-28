@@ -49,3 +49,6 @@ body {
 #verify-alert {
   color: red;
 }
+.form-inline {
+  margin-bottom: 15px;
+}

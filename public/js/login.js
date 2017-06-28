@@ -89,10 +89,10 @@ $("#signup-button").on('click', function(e) {
   }
 })
 /**
- * 获取验证码验证按钮
+ * 获取验证码验证按钮(注册)
  */
 $("#get-verify-button").on('click', function(e) {
-  var btnEle = $("#get-verify-button");
+  var btnEle = $("#verify-button");
   e.preventDefault();
   btnEle.addClass("btn-default")
   btnEle.removeClass("btn-primary");
@@ -102,7 +102,6 @@ $("#get-verify-button").on('click', function(e) {
     if(data != 1) {
       $("#verify-alert").text('获取失败')
     }else {
-      $("#verify-alert").text("测试验证码为123456")
       var time = 10;
       var timerId = window.setInterval(function() {
         if(time > 0) {
@@ -117,7 +116,44 @@ $("#get-verify-button").on('click', function(e) {
       }, 1000)
     }
   })
-  
+})
+/**
+ * 获取验证码验证按钮(密码找回)
+ */
+$("#get-verify").on('click', function(e) {
+  e.preventDefault();
+  var btnEle = $("#get-verify");
+  var phoneNumber = $("forget-phone").val()
+  if(!Utils.phoneCheck(phoneNumber)) {
+    $("#forget-alert").text("请输入正确手机号");
+    $("#forget-alert").show();
+    window.setTimeout(function() {
+      $("#forget-alert").fadeOut();
+    }, 2000)
+    return;
+  }
+  btnEle.addClass("btn-default")
+  btnEle.removeClass("btn-primary");
+  $.get("/getVerify", {
+    phoneNumber: phoneNumber
+  }, function(data) {
+    if(data != 1) {
+      $("#forget-alert").text('获取失败')
+    }else {
+      var time = 10;
+      var timerId = window.setInterval(function() {
+        if(time > 0) {
+          time--;
+          btnEle.text(time+"s");
+        }else {
+          btnEle.text("重新发送");
+          btnEle.addClass("btn-primary")
+          btnEle.removeClass("btn-default");
+          window.clearInterval(timerId);
+        }
+      }, 1000)
+    }
+  })
 })
 /**
  * 验证码验证
