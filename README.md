@@ -26,7 +26,7 @@
 ## 目录 
 - app (mvc) 
 - bower_components (bootstrap和jquery) 
-- common (公共函数、方法) 
+- common (公共函数、方法) 
 - config (配置项(路由)) 
 - node_modules 
 - public (静态文件) 
