@@ -43,15 +43,16 @@ html
     #forget-form.modal.fade.bs-example-modal-sm(tabindex="-1" role="dialog")
       .modal-dialog.modal-sm(role="document")
         .modal-content
-          #forget-alert.modal-header
+          .modal-header
             h3 通过手机把密码找回
+              h6#forget-alert.red.small
           .modal-body
             form
               .form-group
                 input#forget-phone.form-control(type="text" placeholder="请输入手机号")
               .form-inline
                 .form-group
-                  input#verify.form-control.col-md-6(type="text" placeholder="验证码")
+                  input#forget-verify.form-control.col-md-6(type="text" placeholder="验证码")
                   button#get-verify.btn.btn-primary.form-control.col-md-6 获取验证码
               .form-group
                 input#new-password.form-control(type="password" placeholder="新密码")

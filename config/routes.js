@@ -31,6 +31,7 @@ module.exports = function(app) {
   app.post('/signup', User.signup)
   app.post('/signin', User.signin)
   app.get('/signout', User.signout)
+  app.post('/pass_update', User.update)
 
   // Question
   app.post('/question_add', Question.add)

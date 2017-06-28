@@ -1,4 +1,6 @@
 var User = require("../models/user");
+var bcrypt = require("bcrypt");
+var SALT_WORK_FACTOR = 10;
 var verify = require("../../common/verify");
 var Utils = {
   /**
@@ -38,8 +40,13 @@ var Utils = {
 exports.getVerify = function(req, res) {
   var phoneNumber = req.query.phoneNumber;
   if(Utils.phoneCheck(phoneNumber)) {
-    res.send("1");
-    verify(phoneNumber, req);
+    verify(phoneNumber, function(code) {
+      req.session.verify = {
+        phoneNumber: phoneNumber,
+        code: code
+      }
+      res.send("1");
+    });
   }
 }
 /**
@@ -88,7 +95,9 @@ exports.signup = function(req, res) {
     send("0")
   }
   var verify = req.body.verify;
-  if(verify == "123456") {
+  var _verify = req.session.verify ? req.session.verify : null;
+  console.log(req.session.verify);
+  if(verify == _verify.code && phoneNumber == _verify.phoneNumber) {
     var user = new User({
       name: username,
       phoneNumber: phoneNumber,
@@ -151,4 +160,60 @@ exports.signin = function(req, res) {
 exports.signout = function(req, res) {
   delete req.session.user;
   res.redirect("/")
+}
+/**
+ * 修改密码
+ */
+exports.update = function(req, res) {
+  var phoneNumber = req.body.phoneNumber;
+  var password = req.body.password;
+  var verify = req.body.verify;
+  if(password === '') {
+    res.send(JSON.stringify({
+      code: 4,
+      error: '密码不能为空'
+    }))
+  }
+  var _verify = req.session.verify ? req.session.verify : null;
+  if(verify == _verify.code && phoneNumber == _verify.phoneNumber) {
+    User.findOne({phoneNumber: phoneNumber}, function(err, user) {
+      if(err) {
+        console.log(err)
+      }
+      if(!user) {
+        res.send(JSON.stringify({
+          code: 0,
+          error: '该用户未注册'
+        }))
+      }else {
+        bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+          if(err) {
+            console.log(err)
+          }
+          bcrypt.hash(password, salt, function(err, hash) {
+            if(err) {
+              console.log(err)
+            }
+            password = hash;
+            console.log(password)
+            User.update({phoneNumber: phoneNumber}, {password: password}, function(err) {
+              if(err) {
+                console.log(err)
+              }else {
+                res.send(JSON.stringify({
+                  code: 1,
+                  error: ''
+                }))
+              }
+            })
+          })
+        })
+      }
+    })
+  }else {
+    res.send(JSON.stringify({
+      code: 2,
+      error: '验证码错误'
+    }))
+  }
 }

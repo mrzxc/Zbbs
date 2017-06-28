@@ -92,12 +92,13 @@ $("#signup-button").on('click', function(e) {
  * 获取验证码验证按钮(注册)
  */
 $("#get-verify-button").on('click', function(e) {
-  var btnEle = $("#verify-button");
+  var btnEle = $("#get-verify-button");
+  var phoneNumber = $("#verify-button").attr('data-phone');
   e.preventDefault();
   btnEle.addClass("btn-default")
   btnEle.removeClass("btn-primary");
   $.get("/getVerify", {
-    phoneNumber: btnEle.attr('data-phone')
+    phoneNumber: phoneNumber
   }, function(data) {
     if(data != 1) {
       $("#verify-alert").text('获取失败')
@@ -109,8 +110,8 @@ $("#get-verify-button").on('click', function(e) {
           btnEle.text(time+"s");
         }else {
           btnEle.text("重新发送");
-          btnEle.addClass("btn-primary")
           btnEle.removeClass("btn-default");
+          btnEle.addClass("btn-primary")
           window.clearInterval(timerId);
         }
       }, 1000)
@@ -123,7 +124,7 @@ $("#get-verify-button").on('click', function(e) {
 $("#get-verify").on('click', function(e) {
   e.preventDefault();
   var btnEle = $("#get-verify");
-  var phoneNumber = $("forget-phone").val()
+  var phoneNumber = $("#forget-phone").val()
   if(!Utils.phoneCheck(phoneNumber)) {
     $("#forget-alert").text("请输入正确手机号");
     $("#forget-alert").show();
@@ -139,6 +140,10 @@ $("#get-verify").on('click', function(e) {
   }, function(data) {
     if(data != 1) {
       $("#forget-alert").text('获取失败')
+      $("#forget-alert").show();
+      window.setTimeout(function() {
+        $("#forget-alert").fadeOut();
+      }, 2000)
     }else {
       var time = 10;
       var timerId = window.setInterval(function() {
@@ -212,4 +217,35 @@ $("#signin-button").on('click', function(e) {
       }
     })
   }
+})
+/**
+ * 修改密码按钮
+ */
+$("#pass-update").on('click', function(e) {
+  e.preventDefault()
+  var phoneNumber = $("#forget-phone").val();
+  var password = $('#new-password').val();
+  var verify = $("#forget-verify").val();
+  $.post('/pass_update', {
+    phoneNumber: phoneNumber,
+    password: password,
+    verify: verify
+  }, function(data) {
+    data = JSON.parse(data);
+    if(data.code == 1) {
+      $('#forget-form').modal('toggle');
+      setTimeout(function() {
+        $("#forget-phone").val('');
+        $('#new-password').val('');
+        $("#forget-verify").val('')
+      }, 1000)
+    }else if(data.code == 2){
+      $("#forget-alert").text('验证码错误')
+      $("#forget-verify").val('')
+      $("#forget-alert").show();
+      window.setTimeout(function() {
+        $("#forget-alert").fadeOut();
+      }, 2000)
+    }
+  })
 })
