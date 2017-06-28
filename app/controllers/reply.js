@@ -1,6 +1,8 @@
 var Reply = require("../models/reply");
 var User = require("../models/user");
-
+/**
+ * 获取回复列表
+ */
 exports.get = function(req, res) {
   var id = req.query.id;
   var data = {
@@ -38,6 +40,9 @@ exports.get = function(req, res) {
     })
   })
 }
+/**
+ * 增加回复
+ */
 exports.add = function(req, res) {
   var id = req.body.id;
   var content = req.body.content;

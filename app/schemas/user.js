@@ -10,7 +10,9 @@ var UserSchema = new mongoose.Schema({
   img: String,
   password: String
 })
-
+/**
+ * 加密
+ */
 UserSchema.pre("save", function(next) {
   if(this.isNew) {
     this.img = "/img/user.jpg";

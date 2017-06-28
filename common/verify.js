@@ -1,3 +1,4 @@
+// 发送验证码 使用的是网易云通信与视频短信接口 http://netease.im/
 var crypto = require('crypto');
 var credentials = require('../credentials.js');
 function verify(phone, callback) {
