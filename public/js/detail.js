@@ -41,7 +41,6 @@ $(function() {
       }
     })
   })
-
   /**
    *  修改按钮
    */
@@ -52,10 +51,11 @@ $(function() {
     $("#update-content").val($("#question-header-detail").text());
     $("#update-submit").on('click', function(e) {
       e.preventDefault();
-      var title = $("#question-title").val();
-      var content = $("#question-content").val();
+      var title = $("#update-title").val();
+      var content = $("#update-content").val();
       var id = $('#question-header-title').attr('data-id');
       if(title === "") {
+        $("#modal-error").show()
         $("#modal-error").text("标题不能为空");
         setTimeout(function() {
           $("#modal-error").hide();
@@ -69,9 +69,9 @@ $(function() {
       }, function(data) {
         data = JSON.parse(data);
         if(data.code == 1) {
-          $("#question-modal").modal("toggle");
-          $("#question-title").val("");
-          $("#question-content").val("");
+          $("#update-modal").modal("toggle");
+          $("#update-title").val("");
+          $("#update-content").val("");
           location.reload(true);
         }
       })

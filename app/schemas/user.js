@@ -31,23 +31,76 @@ UserSchema.pre("save", function(next) {
     })
   })
 })
-
 UserSchema.methods = {
-  comparePassword: function(_password, callback) {
-    bcrypt.compare(_password, this.password, function(err, isMatch) {
-      if (err) return callback(err);
-      callback(null, isMatch);
-    })
-  }
 }
 
 UserSchema.statics =  {
-  findByPhoneNumber: function(phoneNumber, callback) {
-    return this.find({phoneNumber: phoneNumber});
-    exec(callback);
+  ifExist: function(phoneNumber, cb) {
+    this.findOne({phoneNumber: phoneNumber}, function(err, user) {
+      var code = 0;
+      if(err) {
+        console.log(err);
+      }else if(!user) {
+        code = 1;
+      }else {
+        code = 2;
+      }
+      cb.call(this, err, code);
+    });
+  },
+  comparePassword: function(phoneNumber, _password, cb) {
+    this.findOne({phoneNumber: phoneNumber}, function(err, user) {
+      var code = 0;
+      if(err) {
+        console.log(err)
+      }
+      if(!user) {
+        cb(0);
+      }else {
+        bcrypt.compare(_password, user.password, function(err, isMatch) {
+          if (err) {
+            console.log(err)
+          }
+          if(isMatch) {
+            cb(1, user)
+          }else {
+            cb(2)
+          }
+        })
+      }
+      
+    })
+  },
+  updatePassword: function(phoneNumber, password, cb) {
+    that = this;
+    this.find({phoneNumber: phoneNumber}, {password: password}, function(err, user) {
+      if(err) {
+        console.log(err)
+      }
+      if(!user) {
+        cb(0)
+      }else {
+        var _password;
+        bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+          if(err) {
+            console.log(err)
+          }
+          bcrypt.hash(password, salt, function(err, hash) {
+            if(err) {
+              console.log(err)
+            }
+            _password = hash;
+            that.update({phoneNumber: phoneNumber}, {password: _password}, function(err) {
+              if(err) {
+                console.log(err)
+              }else {
+                cb(1)
+              }
+            })
+          })
+        })
+      }
+    })
   }
 }
-
-
-
 module.exports = UserSchema;

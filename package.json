@@ -31,7 +31,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "jade": "^1.11.0",
-    "mongoose": "^4.10.8"
+    "mongoose": "^4.11.0"
   },
   "devDependencies": {
     "morgan": "^1.8.2",

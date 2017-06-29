@@ -203,7 +203,6 @@ $("#signin-button").on('click', function(e) {
       phoneNumber: phone,
       password: password
     }, function(data) {
-      data = JSON.parse(data)
       if(data.code == 1) {
         console.log(111)
         window.location.href = "/";
@@ -236,7 +235,7 @@ $("#pass-update").on('click', function(e) {
     password: password,
     verify: verify
   }, function(data) {
-    data = JSON.parse(data);
+    console.log(data.code);
     if(data.code == 1) {
       $('#forget-form').modal('toggle');
       setTimeout(function() {

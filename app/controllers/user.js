@@ -56,16 +56,8 @@ exports.Exit = function(req, res) {
   var phoneNumber = req.query.phone;
   var username = req.query.username;
   if(Utils.phoneCheck(phoneNumber) && Utils.usernameCheck(username)) {
-    User.findOne({phoneNumber: phoneNumber}, function(err, user) {
-      if(err) {
-        console.log(err);
-        res.status(200).send("0");
-      }
-      if(!user) {
-        res.status(200).send("1");;
-      }else {
-        res.status(200).send("2");;
-      }
+    User.ifExist(phoneNumber, function(err, data) {
+      res.send(String(data));
     })
   }else {
     res.status(200).send("0");
@@ -96,7 +88,6 @@ exports.signup = function(req, res) {
   }
   var verify = req.body.verify;
   var _verify = req.session.verify ? req.session.verify : null;
-  console.log(req.session.verify);
   if(verify == _verify.code && phoneNumber == _verify.phoneNumber) {
     var user = new User({
       name: username,
@@ -107,17 +98,12 @@ exports.signup = function(req, res) {
       if(err) {
         console.log(err);
       }
-      User.findOne({phoneNumber: phoneNumber}, function(err, user) {
-        if(err) {
-          console.log(err);
-        }
-        req.session.user = {
-          img: user.img,
-          username: user.name,
-          phoneNumber: user.phoneNumber
-        };
-        res.status(200).send("1");
-      })
+      req.session.user = {
+        img: '/img/user.jpg',
+        username: username,
+        phoneNumber: phoneNumber
+      };
+      res.status(200).send("1");
     })
   }else {
     res.status(200).send("0");
@@ -130,29 +116,30 @@ exports.signup = function(req, res) {
 exports.signin = function(req, res) {
   var phoneNumber = req.body.phoneNumber;
   var password = req.body.password;
-  User.findOne({phoneNumber : phoneNumber}, function(err, user) {
-    if(err) {
-      console.log(err);
-    }
-    if(!user) {
-      return res.send(JSON.stringify({code: 0, error: "用户不存在"}));
-    }
-      user.comparePassword(password, function(err, isMatch) {
-        if(err) {
-          console.log(err);
-        }
-        if(isMatch) {
+    User.comparePassword(phoneNumber, password, function(code, user) {
+      var error = '';
+      switch(code) {
+        case 0:
+          error = '用户不存在';
+          break;
+        case 1:
           req.session.user = {
-          img: user.img,
-          username: user.name,
-          phoneNumber: user.phoneNumber
-        };
-          return res.send(JSON.stringify({code: 1, error: null}));
-        }else {
-          res.send(JSON.stringify({code: 2, error: "密码错误"}));
-        }
+            img: user.img,
+            username: user.name,
+            phoneNumber: user.phoneNumber
+          };
+          break;
+        case 2:
+          error = '密码错误';
+          break;
+        default:
+          error = '未知错误';
+      }
+      res.json({
+        code: code,
+        error: error
       })
-  })
+    })
 }
 /**
  * 登出
@@ -169,51 +156,27 @@ exports.update = function(req, res) {
   var password = req.body.password;
   var verify = req.body.verify;
   if(password === '') {
-    res.send(JSON.stringify({
+    res.json({
       code: 4,
       error: '密码不能为空'
-    }))
+    })
   }
   var _verify = req.session.verify ? req.session.verify : null;
   if(verify == _verify.code && phoneNumber == _verify.phoneNumber) {
-    User.findOne({phoneNumber: phoneNumber}, function(err, user) {
-      if(err) {
-        console.log(err)
+    User.updatePassword(phoneNumber, password, function(code) {
+      var error = '';
+      if(code == 0) {
+        error == '该用户未注册'
       }
-      if(!user) {
-        res.send(JSON.stringify({
-          code: 0,
-          error: '该用户未注册'
-        }))
-      }else {
-        bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-          if(err) {
-            console.log(err)
-          }
-          bcrypt.hash(password, salt, function(err, hash) {
-            if(err) {
-              console.log(err)
-            }
-            password = hash;
-            console.log(password)
-            User.update({phoneNumber: phoneNumber}, {password: password}, function(err) {
-              if(err) {
-                console.log(err)
-              }else {
-                res.send(JSON.stringify({
-                  code: 1,
-                  error: ''
-                }))
-              }
-            })
-          })
-        })
-      }
+      res.json({
+        code: String(code),
+        error: error
+      })
     })
   }else {
-    res.send(JSON.stringify({
+    res.json({
       code: 2,
       error: '验证码错误'
-    }))
+    })
   }
 }

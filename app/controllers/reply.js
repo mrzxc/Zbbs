@@ -9,35 +9,8 @@ exports.get = function(req, res) {
     id: id,
     data: []
   }
-  Reply.find({questionId: id}, function(err, replys) {
-    if(err) {
-      console.log(err)
-    }
-    list = replys.sort(function($a, $b) {
-      return Date.parse($b.date) - Date.parse($a.date);
-    })
-    var promises = list.map(function(val, index, array) {
-      return new Promise((resolve, reject) => {
-        User.findOne({phoneNumber: Number(val.userPhoneNumber)}, function(err, user) {
-          if(err) {
-            console.log(err);
-            reject();
-          }
-          data.data[index] = {
-            id: val.id,
-            username: user.name,
-            img: user.img,
-            phoneNumber: val.userPhoneNumber,
-            content: val.content,
-            date: Date.parse(val.date)
-          }
-          resolve();
-        })
-      })
-    })
-    Promise.all(promises).then(function() {
-      res.send(JSON.stringify(data));
-    })
+  Reply.getList(id, function(data) {
+    res.send(JSON.stringify(data))
   })
 }
 /**
