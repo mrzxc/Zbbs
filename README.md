@@ -7,10 +7,10 @@
 1. 下载代码 
     <pre><code>git clone https://github.com/mrzxc/Zbbs.git</code></pre> 
 2. 安装依赖库 
-    <pre><code>npm install</pre></code> 
+    <pre><code>npm install</code></pre> 
 3. 设置credentials.js证书 来自[网易云通信与视频](http://netease.im/)短信验证码接口 
-## 启动 
-    <pre><code>npm start</code></pre> 
+## 启动   
+<pre><code>npm start</code></pre>  
 打开浏览器访问 [http://localhost:3000](http://localhost:3000) 
 ## 应用模块、框架 
 - 客户端 
