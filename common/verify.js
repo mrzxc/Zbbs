@@ -35,6 +35,7 @@ function verify(phone, callback) {
       var json = '';
       res.on('data', function (data) {
         json += data;
+        console.log(JSON.parse(json).obj)
         callback(JSON.parse(json).obj)
       });
     }

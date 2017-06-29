@@ -8,7 +8,7 @@ var mongoStore = require('connect-mongo')(session);
 var app = express();
 mongoose.Promise = global.Promise;
 var dbUrl =  "mongodb://localhost/zhihu";
-mongoose.connect(dbUrl);
+mongoose.connect(dbUrl, {useMongoClient: false});
 
 app.set('port', process.env.PORT || 3000);
 

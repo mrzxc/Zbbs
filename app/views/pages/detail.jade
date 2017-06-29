@@ -17,11 +17,11 @@ block content
             span 删除
       p#question-header-detail= question.content
       .question-header-footer.col-md-offset-10
-        #reply-button.btn.btn-primary
-          span.glyphicon.glyphicon-pencil
-          span 回复
     #question-body.container.col-md-5.col-md-offset-3
-      
+    form.content.col-md-5.col-md-offset-3
+      .form-group
+        textarea#reply-content.form-control(rows= 5 type="text" placeholder="请写下你的答案")
+      button#reply-submit.btn.btn-primary 回复 
   #confirm-delete.modal.fade.bs-example-modal-sm(tabbindex='-1' role="diolog")
     .modal-dialog.modal-sm(role='document')
       .modal-content
@@ -29,18 +29,6 @@ block content
           h4 确认删除吗？
         .modal-body
           button#delete-confirm.btn.btn-primary 确认
-  #reply-modal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
-    .modal-dialog(role="document")
-      .modal-content
-        .modal-header
-          h2 回复帖子
-          h5#modal-error.red.center       
-        .modal-body
-          form
-            .form-group
-              textarea#reply-content.form-control(rows= 5 type="text" placeholder="请写下你的答案")
-            button#reply-submit.btn.btn-primary 提交
-        .modal-footer
   #update-model.modal.fade(tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
     .modal-dialog(role="document")
       .modal-content

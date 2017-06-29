@@ -1,4 +1,3 @@
-
 var Utils = {
   /**
    * 手机号正则验证
@@ -41,6 +40,49 @@ $("#forget").on('click', function(e){
 })
 
 /**
+ * 获取验证码验证按钮(注册)
+ */
+$("#get-verify-button").on('click', function(e) {
+  e.preventDefault();
+  var btnEle = $("#get-verify-button");
+  var phoneNumber = $("#signup-phone").val();
+  if(!Utils.phoneCheck(phoneNumber)) {
+    $("#error span").text("请输入正确手机号");
+    $("#error").show();
+    window.setTimeout(function() {
+      $("#error").fadeOut();
+    }, 2000)
+    return;
+  }
+  btnEle.addClass("btn-default")
+  btnEle.removeClass("btn-primary");
+  $.get("/getVerify", {
+    phoneNumber: phoneNumber
+  }, function(data) {
+    if(data != 1) {
+      $("#error span").text("获取验证码失败");
+      $("#error").show();
+      window.setTimeout(function() {
+        $("#error").fadeOut();
+      }, 2000)
+      return;
+    }else {
+      var time = 10;
+      var timerId = window.setInterval(function() {
+        if(time > 0) {
+          time--;
+          btnEle.text(time+"s");
+        }else {
+          btnEle.text("重新发送");
+          btnEle.removeClass("btn-default");
+          btnEle.addClass("btn-primary")
+          window.clearInterval(timerId);
+        }
+      }, 1000)
+    }
+  })
+})
+/**
  * 注册按钮
  */
 $("#signup-button").on('click', function(e) {
@@ -48,6 +90,7 @@ $("#signup-button").on('click', function(e) {
   var phone = $("#signup-phone").val();
   var username = $("#signup-name").val();
   var password = $("#signup-password").val();
+  var verifyCode = $("#signup-verify").val()
   if(!Utils.phoneCheck(phone)) {
     $("#error span").text("请输入正确手机号");
     $("#error").show();
@@ -71,13 +114,23 @@ $("#signup-button").on('click', function(e) {
       phone: phone,
       username: username
     }, function(data){
-      if(data == 1) {
-        $("#verify-button").attr({
-          "data-phone": phone,
-          "data-name": username,
-          "data-password": password
-        })        
-        $("#verify-modal").modal("toggle");
+      if(data == 1) {        
+        $.post("/signup", {
+          username: username,
+          phoneNumber: phone,
+          password: password,
+          verify: verifyCode
+        }, function(data) {
+          if(data == 0) {
+            $("#error span").text("验证码错误");
+              $("#error").show();
+              window.setTimeout(function() {
+                $("#error").fadeOut();
+              }, 2000)
+          }else if(data == 1) {
+            window.location.href = "/";
+          }
+        })
       }else if(data == 2) {
         $("#error span").text("手机号已注册");
         $("#error").show();
@@ -87,36 +140,6 @@ $("#signup-button").on('click', function(e) {
       }
     });
   }
-})
-/**
- * 获取验证码验证按钮(注册)
- */
-$("#get-verify-button").on('click', function(e) {
-  var btnEle = $("#get-verify-button");
-  var phoneNumber = $("#verify-button").attr('data-phone');
-  e.preventDefault();
-  btnEle.addClass("btn-default")
-  btnEle.removeClass("btn-primary");
-  $.get("/getVerify", {
-    phoneNumber: phoneNumber
-  }, function(data) {
-    if(data != 1) {
-      $("#verify-alert").text('获取失败')
-    }else {
-      var time = 10;
-      var timerId = window.setInterval(function() {
-        if(time > 0) {
-          time--;
-          btnEle.text(time+"s");
-        }else {
-          btnEle.text("重新发送");
-          btnEle.removeClass("btn-default");
-          btnEle.addClass("btn-primary")
-          window.clearInterval(timerId);
-        }
-      }, 1000)
-    }
-  })
 })
 /**
  * 获取验证码验证按钮(密码找回)
@@ -160,25 +183,7 @@ $("#get-verify").on('click', function(e) {
     }
   })
 })
-/**
- * 验证码验证
- */
-$("#verify-button").on("click", function(e) {
-  e.preventDefault();
-  var btnEle = $("#verify-button");
-  $.post("/signup", {
-    username: btnEle.attr('data-name'),
-    phoneNumber: btnEle.attr('data-phone'),
-    password: btnEle.attr('data-password'),
-    verify: $("#signup-verify").val()
-  }, function(data) {
-    if(data == 0) {
-      $("#verify-alert").text('验证失败');
-    }else if(data == 1) {
-      window.location.href = "/";
-    }
-  })
-})
+
 /**
  * 登录验证
  */

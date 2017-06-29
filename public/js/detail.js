@@ -12,19 +12,14 @@ $(function() {
       data.forEach(function(val) {
         str += `<div class="reply-content"><div class="reply-header row"><div class="reply-header-left col-md-1"><a class="reply-img"><img src="${val.img}"/></a></div><div class="reply-header-right col-md-11"><h5 class="gray">${val.username}</h5></div></div><div class="reply-body row"><h5 class="col-md-11 col-md-offset-1">${val.content}</h5></div></div><hr>`;
       }, this);
+      conEle.hide();
       conEle.append(str);
+      conEle.slideDown();
     }) 
   }
   loadReply();
   /**
    * 回复按钮
-   */
-  $("#reply-button").on('click', function(e) {
-    e.preventDefault();
-    $('#reply-modal').modal('toggle')
-  })
-  /**
-   * #reply-submit
    */
   $('#reply-submit').on('click', function(e) {
     e.preventDefault();
