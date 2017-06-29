@@ -34,12 +34,11 @@ $(function(window) {
       title: title,
       content: content
     }, function(data) {
-      data = JSON.parse(data);
       if(data.code == 1) {
         $("#question-modal").modal("toggle");
         $("#question-title").val("");
         $("#question-content").val("");
-        if(refreshList) {
+        if(window.refreshList) {
           refreshList()
         }
       }

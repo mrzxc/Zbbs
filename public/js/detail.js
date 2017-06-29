@@ -6,7 +6,6 @@ $(function() {
     var conEle = $('#question-body')
     conEle.empty();
     $.get('/reply_get', {id: $('#question-header-title').attr('data-id')}, function(data) {
-      data = JSON.parse(data);
       data = data.data;
       var str = '';
       data.forEach(function(val) {
@@ -32,7 +31,6 @@ $(function() {
       'id': $('#question-header-title').attr('data-id'),
       content: content
     }, function(data) {
-      data = JSON.parse(data);
       if(data.code == 1) {
         loadReply();
         $('#reply-modal').modal('toggle');
@@ -67,7 +65,6 @@ $(function() {
         content: content,
         id: id
       }, function(data) {
-        data = JSON.parse(data);
         if(data.code == 1) {
           $("#update-modal").modal("toggle");
           $("#update-title").val("");
@@ -87,7 +84,6 @@ $(function() {
       e.preventDefault();
       var id = $('#question-header-title').attr('data-id');
       $.post('/question_delete',{id: id}, function(data) {
-        data = JSON.parse(data);
         if(data.code == 1) {
           location.href = '/';
         }

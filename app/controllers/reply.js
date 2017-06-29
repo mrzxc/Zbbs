@@ -10,7 +10,7 @@ exports.get = function(req, res) {
     data: []
   }
   Reply.getList(id, function(data) {
-    res.send(JSON.stringify(data))
+    res.json(data)
   })
 }
 /**
@@ -20,7 +20,7 @@ exports.add = function(req, res) {
   var id = req.body.id;
   var content = req.body.content;
   if(!req.session.user) {
-    return res.send(JSON.stringify({code:0, error: '用户未登录'}))
+    return res.json({code:0, error: '用户未登录'})
   }
   var rp = new Reply({
     userPhoneNumber: req.session.user.phoneNumber,
@@ -30,10 +30,10 @@ exports.add = function(req, res) {
   rp.save(function(err, _rp) {
     if(err) {
       console.log(err);
-      return res.send(JSON.stringify({code: 2, error: '数据库错误'}))
+      return res.json({code: 2, error: '数据库错误'})
     }
-    res.send(JSON.stringify({
+    res.json({
       code: 1
-    }))
+    })
   })
 }

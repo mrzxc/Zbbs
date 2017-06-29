@@ -9,7 +9,6 @@ $(function() {
       page = 1;
     }
     $.get('/list', {page: page}, function(data) {
-      data = JSON.parse(data);
       var count = data.count;
       data = data.data;
       listContentEle.empty();

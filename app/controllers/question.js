@@ -5,18 +5,18 @@ var User = require("../models/user");
  */
 exports.add = function(req, res) {
   if(!req.session.user) {
-    return res.send(JSON.stringify({
+    return res.json({
       code: 0,
       error: "用户未登录"
-    }))
+    })
   }
   var title = req.body.title;
   var content = req.body.content;
   if(!title) {
-    return res.send(JSON.stringify({
+    return res.json({
       code: 2,
       error: "标题不能为空"
-    }));
+    })
   }
   var qs = new Question({
     userPhoneNumber: req.session.user.phoneNumber,
@@ -27,9 +27,9 @@ exports.add = function(req, res) {
     if(err) {
       console.log(err);
     }
-    res.send(JSON.stringify({
+    res.json({
       code: 1
-    }))
+    })
   })
 }
 /**
@@ -39,7 +39,7 @@ exports.list = function(req, res) {
   var page = req.query.page;
   var num = 8;
   Question.getList(page, num, function(data) {
-    res.send(JSON.stringify(data));
+    res.json(data);
   })
 }
 /**
@@ -83,14 +83,20 @@ exports.update = function(req, res) {
   var content = req.body.content;
   var id = req.body.id;
   if(!req.session.user) {
-    return res.send(JSON.stringify({code:0, error: '用户未登录'}))
+    return res.json({
+      code:0,
+      error: '用户未登录'
+    })
   }
   Question.updateItem(id, title, content, req.session.user.phoneNumber, function(code) {
     var error = '';
     if(code == 2) {
       error = '非本人操作';
     }
-    res.send(JSON.stringify({code: code, error: '非本人操作'}));
+    res.json({
+      code: code,
+      error: '非本人操作'
+    })
   })
 }
 /**
@@ -99,13 +105,13 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var id = req.body.id;
   if(!req.session.user) {
-    return res.send(JSON.stringify({code:0, error: '用户未登录'}))
+    return res.json({code:0, error: '用户未登录'})
   }
   Question.delete(id, req.session.user.phoneNumber, function(code) {
     var error = '';
     if(code == 2) {
       error = '非本人操作'
     }
-    res.send(JSON.stringify({code: code, error: '非本人操作'}))
+    res.json({code: code, error: '非本人操作'})
   })
 }
