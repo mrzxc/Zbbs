@@ -32,11 +32,8 @@ UserSchema.pre("save", function(next) {
   })
 })
 UserSchema.methods = {
-}
-
-UserSchema.statics =  {
   ifExist: function(phoneNumber, cb) {
-    this.findOne({phoneNumber: phoneNumber}, function(err, user) {
+    this.model.findOne({phoneNumber: phoneNumber}, function(err, user) {
       var code = 0;
       if(err) {
         console.log(err);
@@ -49,7 +46,7 @@ UserSchema.statics =  {
     });
   },
   comparePassword: function(phoneNumber, _password, cb) {
-    this.findOne({phoneNumber: phoneNumber}, function(err, user) {
+    this.model('User').findOne({phoneNumber: phoneNumber}, function(err, user) {
       var code = 0;
       if(err) {
         console.log(err)
@@ -72,8 +69,8 @@ UserSchema.statics =  {
     })
   },
   updatePassword: function(phoneNumber, password, cb) {
-    that = this;
-    this.find({phoneNumber: phoneNumber}, {password: password}, function(err, user) {
+    that = this.model('User');
+    this.model('User').find({phoneNumber: phoneNumber}, {password: password}, function(err, user) {
       if(err) {
         console.log(err)
       }
@@ -103,4 +100,6 @@ UserSchema.statics =  {
     })
   }
 }
+
+
 module.exports = UserSchema;

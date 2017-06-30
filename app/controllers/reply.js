@@ -1,5 +1,6 @@
 var Reply = require("../models/reply");
 var User = require("../models/user");
+var _reply = new Reply();
 /**
  * 获取回复列表
  */
@@ -9,7 +10,7 @@ exports.get = function(req, res) {
     id: id,
     data: []
   }
-  Reply.getList(id, function(data) {
+  _reply.getList(id, function(data) {
     res.json(data)
   })
 }

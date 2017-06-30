@@ -2,6 +2,7 @@ var User = require("../models/user");
 var bcrypt = require("bcrypt");
 var SALT_WORK_FACTOR = 10;
 var verify = require("../../common/verify");
+var _user = new User();
 var Utils = {
   /**
    * 手机号正则验证
@@ -56,7 +57,7 @@ exports.Exit = function(req, res) {
   var phoneNumber = req.query.phone;
   var username = req.query.username;
   if(Utils.phoneCheck(phoneNumber) && Utils.usernameCheck(username)) {
-    User.ifExist(phoneNumber, function(err, data) {
+    _user.ifExist(phoneNumber, function(err, data) {
       res.send(String(data));
     })
   }else {
@@ -116,7 +117,7 @@ exports.signup = function(req, res) {
 exports.signin = function(req, res) {
   var phoneNumber = req.body.phoneNumber;
   var password = req.body.password;
-    User.comparePassword(phoneNumber, password, function(code, user) {
+    _user.comparePassword(phoneNumber, password, function(code, user) {
       var error = '';
       switch(code) {
         case 0:
@@ -163,7 +164,7 @@ exports.update = function(req, res) {
   }
   var _verify = req.session.verify ? req.session.verify : null;
   if(verify == _verify.code && phoneNumber == _verify.phoneNumber) {
-    User.updatePassword(phoneNumber, password, function(code) {
+    _user.updatePassword(phoneNumber, password, function(code) {
       var error = '';
       if(code == 0) {
         error == '该用户未注册'

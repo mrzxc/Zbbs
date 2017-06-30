@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var User = require("../models/user");
+var _user = new User();
 var QuestionSchema = new mongoose.Schema({
   userPhoneNumber: String,
   title: String,
@@ -17,13 +18,17 @@ QuestionSchema.pre("save", function(next) {
 });
 
 QuestionSchema.statics = {
-  fetch: function() {
+
+}
+
+QuestionSchema.methods = {
+    fetch: function() {
     cb()
-    return this.find({}).sort('date');
+    return this.model('Question').find({}).sort('date');
   },
   getList: function(page, num, cb) {
-    var that = this;
-    this.find({}, function(err, _list) {
+    var that = this.model('Question');
+    this.model('Question').find({}, function(err, _list) {
       if(err) {
         console.log(err)
       }
@@ -63,8 +68,8 @@ QuestionSchema.statics = {
     })
   },
   updateItem: function(id, title, content, phoneNumber, cb) {
-    var that = this;
-    this.findById(id, function(err, qs) {
+    var that = this.model('Question');
+    this.model('Question').findById(id, function(err, qs) {
       if(err) {
         console.log(err);
       }
@@ -84,8 +89,8 @@ QuestionSchema.statics = {
     })
   },
   delete: function(id, phoneNumber, cb) {
-    var that = this;
-    this.findById(id, function(err, qs) {
+    var that = this.model('Question');
+    this.model('Question').findById(id, function(err, qs) {
       if(err) {
         console.log(err);
       }

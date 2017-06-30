@@ -1,5 +1,6 @@
 var Question = require("../models/question");
 var User = require("../models/user");
+var _question = new Question();
 /**
  * 增加
  */
@@ -38,7 +39,7 @@ exports.add = function(req, res) {
 exports.list = function(req, res) {
   var page = req.query.page;
   var num = 8;
-  Question.getList(page, num, function(data) {
+  _question.getList(page, num, function(data) {
     res.json(data);
   })
 }
@@ -88,7 +89,7 @@ exports.update = function(req, res) {
       error: '用户未登录'
     })
   }
-  Question.updateItem(id, title, content, req.session.user.phoneNumber, function(code) {
+  _question.updateItem(id, title, content, req.session.user.phoneNumber, function(code) {
     var error = '';
     if(code == 2) {
       error = '非本人操作';
@@ -107,7 +108,7 @@ exports.delete = function(req, res) {
   if(!req.session.user) {
     return res.json({code:0, error: '用户未登录'})
   }
-  Question.delete(id, req.session.user.phoneNumber, function(code) {
+  _question.delete(id, req.session.user.phoneNumber, function(code) {
     var error = '';
     if(code == 2) {
       error = '非本人操作'

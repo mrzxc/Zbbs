@@ -1,5 +1,5 @@
-var Reply = require("../models/reply");
 var User = require("../models/user");
+var _user = new User();
 var mongoose = require("mongoose");
 var ReplySchema = new mongoose.Schema({
   questionId: String,
@@ -17,10 +17,10 @@ ReplySchema.pre("save", function(next) {
   }
   next();
 });
-ReplySchema.statics = {
+ReplySchema.methods = {
   getList: function(id, cb) {
-    var that = this;
-    this.find({questionId: id}, function(err, replys) {
+    var that = this.model('Reply');
+    this.model('Reply').find({questionId: id}, function(err, replys) {
       if(err) {
         console.log(err)
       }
@@ -55,5 +55,8 @@ ReplySchema.statics = {
       })
     })
   }
+}
+ReplySchema.statics = {
+  
 }
 module.exports = ReplySchema;
